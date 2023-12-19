@@ -1,4 +1,4 @@
 print('Hello')
 
 def funk():
-    return None
+    return 1
