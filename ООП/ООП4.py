@@ -1,47 +1,49 @@
 from abc import abstractmethod
-
+import uuid
+import re
 
 class Info:
-    @abstractmethod
     def info(self):
         pass
 
-
 class Customer(Info):
-    def __init__(self, name, email, customer_id):
+    def __init__(self, name, email):
         self._name = name
         self._email = email
-        self._customer_id = customer_id
+        self._customer_id = f'Your id is {uuid.uuid1()}'
 
     @property
     def name(self):
-        return self._name
-
+        try:
+            if isinstance(self._name, str):
+                return f'Your name is {self._name}.'
+            else:
+                return '!Oops... Error: <<Invalid name>>!'
+        except Exception as e:
+            return f'!Oops... Error: <<Invalid name>>!, {e}'
     @property
     def email(self):
-        return self._email
-
-    @property
-    def customer_id(self):
-        return self._customer_id
+        try:
+            if re.match(r'\b\w+@gmail\.com\b', self._email):
+            # if isinstance(self._email, str):
+                return f'Your email is {self._email}.'
+            else:
+                return '!Oops... Error: <<Invalid email>>!'
+        except Exception as e:
+            return f'!Oops... Error: <<Invalid email>>!, {e}'
 
     def info(self):
-        return f'Your name is {self._name}\nYour email is {self._email}\nYour id is {self._customer_id}'
-
-from random import randint
+        return f'Your name is {self.name}\nYour email is {self.email}\n{self._customer_id}'
 
 class BankAccount(Info):
-    def __init__(self, balance, owner, account_number):
+    def __init__(self, balance, owner):
         self._balance = int(balance)
         self._owner = owner
-        self._account_number = self.gen_acc_num()
-
-    def gen_acc_num(self):
-        return ''.join(str(randint(0, 5)) for _ in range(10))
+        self._account_number = f'Your account number is {uuid.uuid4()}'
 
     @property
     def balance(self):
-        return self._balance
+        return f'Your balance is {self._balance}$!'
 
     def add_balance(self, num):
         if num > 0:
@@ -49,35 +51,38 @@ class BankAccount(Info):
         else:
             print('Сума для внесення повинна бути більше нуля.')
 
-    def minus_balance(self, num):
+    def withdraw_balance(self, num):
         if self._balance - num >= 0:
             self._balance -= num
         else:
             print('На вашому рахунку недостатньо коштів.')
 
-    def return_bal(self):
-        return f'Your balance is {self._balance}$!'
-
     @property
     def owner(self):
-        return self._owner
-
-    @property
-    def account_number(self):
-        return self._account_number
+        try:
+            if re.match(r'^[a-zA-Z]+$', self._owner):
+                return f'Owner is {self._owner}.'
+            else:
+                return '!Oops... Error: <<Invalid name>>!'
+        except Exception as e:
+            return f'!Oops... Error: <<Invalid name>>!, {e}'
 
     def info(self):
-        return f'Your balance is {self._balance}\nOwner is {self._owner}\nYour account number is {self._account_number}'
+        return f'Your balance is {self._balance}\nOwner is {self.owner}\n{self._account_number}'
 
-customer = Customer('Vadim', 'vadim01@gmail.com', 312553)
-account = BankAccount(500, 'Vadim', 5)
+customer = Customer('Vadim', 'vadim01@gmail.com')
+account = BankAccount(500, 'Vadim')
 
 print(customer.info())
+print(customer.email)
+print(customer.name)
+print(customer._customer_id)
+
 print(account.info())
-print(account.return_bal())
+print(account.owner)
+print(account._account_number)
 
 account.add_balance(100)
-account.minus_balance(1000)
-account.minus_balance(10)
-print(account.return_bal())
-print(account.account_number)
+account.withdraw_balance(1000)
+account.withdraw_balance(10)
+print(account.balance)

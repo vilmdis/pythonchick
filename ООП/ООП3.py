@@ -26,37 +26,41 @@
 
 class Account:
     def __init__(self, balance, account_holder):
-        self._balance = int(balance)
+        self.__balance = int(balance)
         self._account_holder = account_holder
 
     @property
-    def balance(self):
-        return self._balance
+    def __get_balance(self):
+        return f'Your balance is {self.__balance}$!'
 
-    @balance.setter
-    def balance(self, num):
+    @__get_balance.setter
+    def __get_balance(self, num):
         if num > 0:
-            self._balance = num
+            self.__balance = num
         else:
             print('Your balance cannot be <0')
 
     @property
-    def account_holder(self):
+    def _get_account_holder(self):
         return self._account_holder
-
-    def return_bal(self):
-        return f'Your balance is {self._balance}$!'
 
 account = Account(100, 'Vlad')
 
-print(account.balance)
+try:
+    print(account._Account__get_balance)
+except AttributeError:
+    print("Cannot access private method.")
 
-print(account.account_holder)
+print(account._account_holder)
 
-print(account.return_bal())
+try:
+    account._Account__get_balance = 150
+    print(account._Account__get_balance)
+except AttributeError:
+    print("Cannot access private method.")
 
-account.balance = 150
-
-print(account.return_bal())
-
-account.balance = -50
+try:
+    account._Account__get_balance = -50
+    print(account._Account__get_balance)
+except AttributeError:
+    print("Cannot access private method.")
