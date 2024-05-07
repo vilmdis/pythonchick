@@ -91,6 +91,14 @@
 
 # import re
 
+# w = 'ISBM 978-1-2161-2345-6'
+# if re.match(r'^ISBM 978-\d{1}+-\d{4}-\d{4}-\d{1}$', w):
+#     print('Valid')
+# else:
+#     print('No valid')
+
+# import re
+
 # txt = input()
 # if re.match(r'^[0-3][1-1]+-[0-1][1-2]+-\d{4}$', txt):
 #     print('Valid')
