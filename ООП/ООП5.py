@@ -11,9 +11,9 @@ class Book:
 
     def check_availability(self):
         if bool(self.copies > 0):
-            return 'Ok'
+            return 'Ok.'
         else:
-            return 'Not ok'
+            return 'Not ok.'
 
     def add_copies(self, num):
         if num > 0:

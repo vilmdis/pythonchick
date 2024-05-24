@@ -40,3 +40,14 @@
 #         return n % 10 + sum_of_num(n // 10)
 
 # print(sum_of_num(1234))
+
+# class MetaClass(type):
+#     def __new__(cls, name, bases, attrs):
+#         print(f'Created new class {name}!')
+#         return super().__new__(cls, name, bases, attrs)
+
+
+# class MyClass(metaclass=MetaClass):
+#     pass
+
+# MyClass()
