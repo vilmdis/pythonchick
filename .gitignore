@@ -1,11 +1,4 @@
-.env.local
-buf.py
-main.py
-file_work.py
-Errors.py
-decorators.py
-decorators_homework.py
-class.py
-buf.py
-homework.py
-files/text.txt
+.DS_Store
+.idea
+.env
+.venv
